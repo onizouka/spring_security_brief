@@ -1,0 +1,19 @@
+meta {
+  name: DELETE /api/users/{id}
+  type: http
+  seq: 8
+}
+
+delete {
+  url: {{baseUrl}}/api/users/:id
+  auth: none
+}
+
+params:path {
+  id: {{$randomUUID}}
+}
+
+headers {
+  Accept: application/json
+}
+

@@ -1,0 +1,28 @@
+meta {
+  name: POST /api/books
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/books
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "author": "{{$randomLoremWord}}",
+    "category": "{{$randomLoremWord}}",
+    "id": "{{$randomUUID}}",
+    "numberOfCopiesAvailable": {{$randomInt}},
+    "title": "{{$randomLoremWord}}",
+    "yearOfPublication": {{$randomInt}}
+  }
+}
+

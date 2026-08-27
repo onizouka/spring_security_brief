@@ -1,0 +1,32 @@
+meta {
+  name: PUT /api/books/{id}
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseUrl}}/api/books/:id
+  body: json
+  auth: none
+}
+
+params:path {
+  id: {{$randomUUID}}
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "author": "{{$randomLoremWord}}",
+    "category": "{{$randomLoremWord}}",
+    "id": "{{$randomUUID}}",
+    "numberOfCopiesAvailable": {{$randomInt}},
+    "title": "{{$randomLoremWord}}",
+    "yearOfPublication": {{$randomInt}}
+  }
+}
+

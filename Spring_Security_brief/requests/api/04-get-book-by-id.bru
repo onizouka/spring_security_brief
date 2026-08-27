@@ -1,0 +1,19 @@
+meta {
+  name: GET /api/books/{id}
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/books/:id
+  auth: none
+}
+
+params:path {
+  id: {{$randomUUID}}
+}
+
+headers {
+  Accept: application/json
+}
+

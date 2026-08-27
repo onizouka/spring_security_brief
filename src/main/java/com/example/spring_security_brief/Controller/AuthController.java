@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("auth")
 public class AuthController {
@@ -73,7 +75,7 @@ public class AuthController {
         if(userRepository.findByUsername(request.username()).isPresent()) {
             throw new RuntimeException("User already exists");
         }
-        RoleEntity userRole = roleRepository.findById("USER")
+        RoleEntity userRole = roleRepository.findById("ROLE_USER")
                 .orElseThrow();
         UserEntity user = UserEntity.builder()
                 .username(request.username())
@@ -81,6 +83,7 @@ public class AuthController {
                 .hashedPassword(
                         passwordEncoder.encode(
                                 request.password()))
+                .roles(List.of(userRole))
                 .build();
 
         userRepository.save(user);

@@ -49,6 +49,18 @@ public class AuthController {
 
     @PostMapping("/login")
     public LoginDto login(@RequestBody LoginRequest request) {
+        System.out.println("=== LOGIN CONTROLLER ATTEINT ===");
+        UserEntity user = userRepository
+                .findByUsername(request.username())
+                .orElseThrow();
+
+        boolean passwordOk = passwordEncoder.matches(
+                request.password(),
+                user.getPassword()
+        );
+
+        System.out.println("Utilisateur trouvé : " + user.getUsername());
+        System.out.println("Password OK : " + passwordOk);
         Authentication auth =
                 authManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
@@ -86,6 +98,7 @@ public class AuthController {
                 .build();
 
         userRepository.save(user);
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Utilisateur créé");
     }
